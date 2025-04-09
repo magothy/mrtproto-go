@@ -164,8 +164,10 @@ type Range struct {
 	MaxRangeM         float64                `protobuf:"fixed64,8,opt,name=max_range_m,json=maxRangeM,proto3" json:"max_range_m,omitempty"`
 	FieldOfViewDeg    float64                `protobuf:"fixed64,6,opt,name=field_of_view_deg,json=fieldOfViewDeg,proto3" json:"field_of_view_deg,omitempty"`
 	Pose              *Pose                  `protobuf:"bytes,7,opt,name=pose,proto3,oneof" json:"pose,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	// associate with a specific, tracked object
+	TargetId      *string `protobuf:"bytes,9,opt,name=target_id,json=targetId,proto3,oneof" json:"target_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Range) Reset() {
@@ -254,6 +256,157 @@ func (x *Range) GetPose() *Pose {
 	return nil
 }
 
+func (x *Range) GetTargetId() string {
+	if x != nil && x.TargetId != nil {
+		return *x.TargetId
+	}
+	return ""
+}
+
+type TargetPosition struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TtagSystem    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=ttag_system,json=ttagSystem,proto3" json:"ttag_system,omitempty"`
+	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
+	TargetId      string                 `protobuf:"bytes,3,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
+	LatDeg        float64                `protobuf:"fixed64,4,opt,name=lat_deg,json=latDeg,proto3" json:"lat_deg,omitempty"`
+	LonDeg        float64                `protobuf:"fixed64,5,opt,name=lon_deg,json=lonDeg,proto3" json:"lon_deg,omitempty"`
+	Confidence    float64                `protobuf:"fixed64,6,opt,name=confidence,proto3" json:"confidence,omitempty"` // [0, 1]
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TargetPosition) Reset() {
+	*x = TargetPosition{}
+	mi := &file_sensor_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TargetPosition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TargetPosition) ProtoMessage() {}
+
+func (x *TargetPosition) ProtoReflect() protoreflect.Message {
+	mi := &file_sensor_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TargetPosition.ProtoReflect.Descriptor instead.
+func (*TargetPosition) Descriptor() ([]byte, []int) {
+	return file_sensor_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TargetPosition) GetTtagSystem() *timestamppb.Timestamp {
+	if x != nil {
+		return x.TtagSystem
+	}
+	return nil
+}
+
+func (x *TargetPosition) GetTtagSteadyNs() uint64 {
+	if x != nil {
+		return x.TtagSteadyNs
+	}
+	return 0
+}
+
+func (x *TargetPosition) GetTargetId() string {
+	if x != nil {
+		return x.TargetId
+	}
+	return ""
+}
+
+func (x *TargetPosition) GetLatDeg() float64 {
+	if x != nil {
+		return x.LatDeg
+	}
+	return 0
+}
+
+func (x *TargetPosition) GetLonDeg() float64 {
+	if x != nil {
+		return x.LonDeg
+	}
+	return 0
+}
+
+func (x *TargetPosition) GetConfidence() float64 {
+	if x != nil {
+		return x.Confidence
+	}
+	return 0
+}
+
+type TargetPositions struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TtagSystem    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=ttag_system,json=ttagSystem,proto3" json:"ttag_system,omitempty"`
+	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
+	Positions     []*TargetPosition      `protobuf:"bytes,3,rep,name=positions,proto3" json:"positions,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TargetPositions) Reset() {
+	*x = TargetPositions{}
+	mi := &file_sensor_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TargetPositions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TargetPositions) ProtoMessage() {}
+
+func (x *TargetPositions) ProtoReflect() protoreflect.Message {
+	mi := &file_sensor_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TargetPositions.ProtoReflect.Descriptor instead.
+func (*TargetPositions) Descriptor() ([]byte, []int) {
+	return file_sensor_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *TargetPositions) GetTtagSystem() *timestamppb.Timestamp {
+	if x != nil {
+		return x.TtagSystem
+	}
+	return nil
+}
+
+func (x *TargetPositions) GetTtagSteadyNs() uint64 {
+	if x != nil {
+		return x.TtagSteadyNs
+	}
+	return 0
+}
+
+func (x *TargetPositions) GetPositions() []*TargetPosition {
+	if x != nil {
+		return x.Positions
+	}
+	return nil
+}
+
 var File_sensor_proto protoreflect.FileDescriptor
 
 const file_sensor_proto_rawDesc = "" +
@@ -266,7 +419,7 @@ const file_sensor_proto_rawDesc = "" +
 	"headingDeg\x12/\n" +
 	"\x13position_covariance\x18\x04 \x03(\x02R\x12positionCovariance\x12/\n" +
 	"\x11heading_error_deg\x18\x05 \x01(\x02H\x00R\x0fheadingErrorDeg\x88\x01\x01B\x14\n" +
-	"\x12_heading_error_deg\"\xb6\x03\n" +
+	"\x12_heading_error_deg\"\xe6\x03\n" +
 	"\x05Range\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
@@ -276,14 +429,32 @@ const file_sensor_proto_rawDesc = "" +
 	"\x13range_uncertainty_m\x18\x05 \x01(\x01R\x11rangeUncertaintyM\x12\x1e\n" +
 	"\vmax_range_m\x18\b \x01(\x01R\tmaxRangeM\x12)\n" +
 	"\x11field_of_view_deg\x18\x06 \x01(\x01R\x0efieldOfViewDeg\x126\n" +
-	"\x04pose\x18\a \x01(\v2\x1d.magothy.protobuf.sensor.PoseH\x00R\x04pose\x88\x01\x01\"<\n" +
+	"\x04pose\x18\a \x01(\v2\x1d.magothy.protobuf.sensor.PoseH\x00R\x04pose\x88\x01\x01\x12 \n" +
+	"\ttarget_id\x18\t \x01(\tH\x01R\btargetId\x88\x01\x01\"<\n" +
 	"\x04Type\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\x0e\n" +
 	"\n" +
 	"ULTRASOUND\x10\x01\x12\f\n" +
 	"\bINFRARED\x10\x02\x12\t\n" +
 	"\x05LASER\x10\x03B\a\n" +
-	"\x05_poseb\x06proto3"
+	"\x05_poseB\f\n" +
+	"\n" +
+	"_target_id\"\xe2\x01\n" +
+	"\x0eTargetPosition\x12;\n" +
+	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"ttagSystem\x12$\n" +
+	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12\x1b\n" +
+	"\ttarget_id\x18\x03 \x01(\tR\btargetId\x12\x17\n" +
+	"\alat_deg\x18\x04 \x01(\x01R\x06latDeg\x12\x17\n" +
+	"\alon_deg\x18\x05 \x01(\x01R\x06lonDeg\x12\x1e\n" +
+	"\n" +
+	"confidence\x18\x06 \x01(\x01R\n" +
+	"confidence\"\xbb\x01\n" +
+	"\x0fTargetPositions\x12;\n" +
+	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"ttagSystem\x12$\n" +
+	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12E\n" +
+	"\tpositions\x18\x03 \x03(\v2'.magothy.protobuf.sensor.TargetPositionR\tpositionsb\x06proto3"
 
 var (
 	file_sensor_proto_rawDescOnce sync.Once
@@ -298,22 +469,27 @@ func file_sensor_proto_rawDescGZIP() []byte {
 }
 
 var file_sensor_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_sensor_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_sensor_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_sensor_proto_goTypes = []any{
 	(Range_Type)(0),               // 0: magothy.protobuf.sensor.Range.Type
 	(*Pose)(nil),                  // 1: magothy.protobuf.sensor.Pose
 	(*Range)(nil),                 // 2: magothy.protobuf.sensor.Range
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*TargetPosition)(nil),        // 3: magothy.protobuf.sensor.TargetPosition
+	(*TargetPositions)(nil),       // 4: magothy.protobuf.sensor.TargetPositions
+	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
 }
 var file_sensor_proto_depIdxs = []int32{
-	3, // 0: magothy.protobuf.sensor.Range.ttag_system:type_name -> google.protobuf.Timestamp
+	5, // 0: magothy.protobuf.sensor.Range.ttag_system:type_name -> google.protobuf.Timestamp
 	0, // 1: magothy.protobuf.sensor.Range.type:type_name -> magothy.protobuf.sensor.Range.Type
 	1, // 2: magothy.protobuf.sensor.Range.pose:type_name -> magothy.protobuf.sensor.Pose
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	5, // 3: magothy.protobuf.sensor.TargetPosition.ttag_system:type_name -> google.protobuf.Timestamp
+	5, // 4: magothy.protobuf.sensor.TargetPositions.ttag_system:type_name -> google.protobuf.Timestamp
+	3, // 5: magothy.protobuf.sensor.TargetPositions.positions:type_name -> magothy.protobuf.sensor.TargetPosition
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_sensor_proto_init() }
@@ -329,7 +505,7 @@ func file_sensor_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sensor_proto_rawDesc), len(file_sensor_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
