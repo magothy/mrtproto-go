@@ -97,6 +97,8 @@ const (
 	CommandType_COMMAND_TURN_OFF  CommandType = 2 // value ignored
 	CommandType_COMMAND_SET_RANGE CommandType = 3 // value is range in meters
 	CommandType_COMMAND_SET_GAIN  CommandType = 4
+	CommandType_COMMAND_SET_RAIN  CommandType = 5
+	CommandType_COMMAND_SET_SEA   CommandType = 6
 )
 
 // Enum value maps for CommandType.
@@ -107,6 +109,8 @@ var (
 		2: "COMMAND_TURN_OFF",
 		3: "COMMAND_SET_RANGE",
 		4: "COMMAND_SET_GAIN",
+		5: "COMMAND_SET_RAIN",
+		6: "COMMAND_SET_SEA",
 	}
 	CommandType_value = map[string]int32{
 		"COMMAND_NONE":      0,
@@ -114,6 +118,8 @@ var (
 		"COMMAND_TURN_OFF":  2,
 		"COMMAND_SET_RANGE": 3,
 		"COMMAND_SET_GAIN":  4,
+		"COMMAND_SET_RAIN":  5,
+		"COMMAND_SET_SEA":   6,
 	}
 )
 
@@ -505,13 +511,15 @@ const file_radar_proto_rawDesc = "" +
 	"\x13STATE_SPINNING_DOWN\x10\x05\x12\x12\n" +
 	"\x0eSTATE_STARTING\x10\x06\x12\x15\n" +
 	"\x11STATE_SPINNING_UP\x10\a\x12\x12\n" +
-	"\x0eSTATE_TRANSMIT\x10\b*w\n" +
+	"\x0eSTATE_TRANSMIT\x10\b*\xa2\x01\n" +
 	"\vCommandType\x12\x10\n" +
 	"\fCOMMAND_NONE\x10\x00\x12\x13\n" +
 	"\x0fCOMMAND_TURN_ON\x10\x01\x12\x14\n" +
 	"\x10COMMAND_TURN_OFF\x10\x02\x12\x15\n" +
 	"\x11COMMAND_SET_RANGE\x10\x03\x12\x14\n" +
-	"\x10COMMAND_SET_GAIN\x10\x04b\x06proto3"
+	"\x10COMMAND_SET_GAIN\x10\x04\x12\x14\n" +
+	"\x10COMMAND_SET_RAIN\x10\x05\x12\x13\n" +
+	"\x0fCOMMAND_SET_SEA\x10\x06b\x06proto3"
 
 var (
 	file_radar_proto_rawDescOnce sync.Once
