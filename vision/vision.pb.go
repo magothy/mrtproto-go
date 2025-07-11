@@ -588,6 +588,303 @@ func (x *OccupancyMap) GetGrid() []byte {
 	return nil
 }
 
+type ObjectPosition struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	LatitudeDeg   float32                `protobuf:"fixed32,1,opt,name=latitude_deg,json=latitudeDeg,proto3" json:"latitude_deg,omitempty"`
+	LongitudeDeg  float32                `protobuf:"fixed32,2,opt,name=longitude_deg,json=longitudeDeg,proto3" json:"longitude_deg,omitempty"`
+	ZM            float32                `protobuf:"fixed32,3,opt,name=z_m,json=zM,proto3" json:"z_m,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObjectPosition) Reset() {
+	*x = ObjectPosition{}
+	mi := &file_vision_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObjectPosition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObjectPosition) ProtoMessage() {}
+
+func (x *ObjectPosition) ProtoReflect() protoreflect.Message {
+	mi := &file_vision_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObjectPosition.ProtoReflect.Descriptor instead.
+func (*ObjectPosition) Descriptor() ([]byte, []int) {
+	return file_vision_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ObjectPosition) GetLatitudeDeg() float32 {
+	if x != nil {
+		return x.LatitudeDeg
+	}
+	return 0
+}
+
+func (x *ObjectPosition) GetLongitudeDeg() float32 {
+	if x != nil {
+		return x.LongitudeDeg
+	}
+	return 0
+}
+
+func (x *ObjectPosition) GetZM() float32 {
+	if x != nil {
+		return x.ZM
+	}
+	return 0
+}
+
+// Object velocity in cartesian coordinates (east, north, up)
+type ObjectVelocity struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	VxMps         float32                `protobuf:"fixed32,1,opt,name=vx_mps,json=vxMps,proto3" json:"vx_mps,omitempty"`
+	VyMps         float32                `protobuf:"fixed32,2,opt,name=vy_mps,json=vyMps,proto3" json:"vy_mps,omitempty"`
+	VzMps         float32                `protobuf:"fixed32,3,opt,name=vz_mps,json=vzMps,proto3" json:"vz_mps,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObjectVelocity) Reset() {
+	*x = ObjectVelocity{}
+	mi := &file_vision_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObjectVelocity) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObjectVelocity) ProtoMessage() {}
+
+func (x *ObjectVelocity) ProtoReflect() protoreflect.Message {
+	mi := &file_vision_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObjectVelocity.ProtoReflect.Descriptor instead.
+func (*ObjectVelocity) Descriptor() ([]byte, []int) {
+	return file_vision_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ObjectVelocity) GetVxMps() float32 {
+	if x != nil {
+		return x.VxMps
+	}
+	return 0
+}
+
+func (x *ObjectVelocity) GetVyMps() float32 {
+	if x != nil {
+		return x.VyMps
+	}
+	return 0
+}
+
+func (x *ObjectVelocity) GetVzMps() float32 {
+	if x != nil {
+		return x.VzMps
+	}
+	return 0
+}
+
+type ObjectTrack struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TtagSystem    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=ttag_system,json=ttagSystem,proto3" json:"ttag_system,omitempty"`
+	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
+	TrackId       int32                  `protobuf:"varint,3,opt,name=track_id,json=trackId,proto3" json:"track_id,omitempty"`
+	BranchId      int32                  `protobuf:"varint,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"` // source of the track, e.g. sensor ID, tracker ID
+	AgeS          float32                `protobuf:"fixed32,6,opt,name=age_s,json=ageS,proto3" json:"age_s,omitempty"`            // update time since first detection
+	Position      *ObjectPosition        `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
+	Velocity      *ObjectVelocity        `protobuf:"bytes,8,opt,name=velocity,proto3" json:"velocity,omitempty"`
+	Covariance    []float32              `protobuf:"fixed32,9,rep,packed,name=covariance,proto3" json:"covariance,omitempty"` // 6x6 row-major covariance matrix
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObjectTrack) Reset() {
+	*x = ObjectTrack{}
+	mi := &file_vision_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObjectTrack) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObjectTrack) ProtoMessage() {}
+
+func (x *ObjectTrack) ProtoReflect() protoreflect.Message {
+	mi := &file_vision_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObjectTrack.ProtoReflect.Descriptor instead.
+func (*ObjectTrack) Descriptor() ([]byte, []int) {
+	return file_vision_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ObjectTrack) GetTtagSystem() *timestamppb.Timestamp {
+	if x != nil {
+		return x.TtagSystem
+	}
+	return nil
+}
+
+func (x *ObjectTrack) GetTtagSteadyNs() uint64 {
+	if x != nil {
+		return x.TtagSteadyNs
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetTrackId() int32 {
+	if x != nil {
+		return x.TrackId
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetBranchId() int32 {
+	if x != nil {
+		return x.BranchId
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetSourceId() int32 {
+	if x != nil {
+		return x.SourceId
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetAgeS() float32 {
+	if x != nil {
+		return x.AgeS
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetPosition() *ObjectPosition {
+	if x != nil {
+		return x.Position
+	}
+	return nil
+}
+
+func (x *ObjectTrack) GetVelocity() *ObjectVelocity {
+	if x != nil {
+		return x.Velocity
+	}
+	return nil
+}
+
+func (x *ObjectTrack) GetCovariance() []float32 {
+	if x != nil {
+		return x.Covariance
+	}
+	return nil
+}
+
+type ObjectTrackList struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TtagSystem    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=ttag_system,json=ttagSystem,proto3" json:"ttag_system,omitempty"`
+	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
+	SourceId      int32                  `protobuf:"varint,3,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"` // source of the track list
+	Tracks        []*ObjectTrack         `protobuf:"bytes,4,rep,name=tracks,proto3" json:"tracks,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObjectTrackList) Reset() {
+	*x = ObjectTrackList{}
+	mi := &file_vision_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObjectTrackList) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObjectTrackList) ProtoMessage() {}
+
+func (x *ObjectTrackList) ProtoReflect() protoreflect.Message {
+	mi := &file_vision_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObjectTrackList.ProtoReflect.Descriptor instead.
+func (*ObjectTrackList) Descriptor() ([]byte, []int) {
+	return file_vision_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ObjectTrackList) GetTtagSystem() *timestamppb.Timestamp {
+	if x != nil {
+		return x.TtagSystem
+	}
+	return nil
+}
+
+func (x *ObjectTrackList) GetTtagSteadyNs() uint64 {
+	if x != nil {
+		return x.TtagSteadyNs
+	}
+	return 0
+}
+
+func (x *ObjectTrackList) GetSourceId() int32 {
+	if x != nil {
+		return x.SourceId
+	}
+	return 0
+}
+
+func (x *ObjectTrackList) GetTracks() []*ObjectTrack {
+	if x != nil {
+		return x.Tracks
+	}
+	return nil
+}
+
 var File_vision_proto protoreflect.FileDescriptor
 
 const file_vision_proto_rawDesc = "" +
@@ -656,7 +953,34 @@ const file_vision_proto_rawDesc = "" +
 	"\x02GZ\x10\x01\x12\b\n" +
 	"\x04ZSTD\x10\x02\x12\b\n" +
 	"\x04JPEG\x10\x03\x12\a\n" +
-	"\x03PNG\x10\x04b\x06proto3"
+	"\x03PNG\x10\x04\"i\n" +
+	"\x0eObjectPosition\x12!\n" +
+	"\flatitude_deg\x18\x01 \x01(\x02R\vlatitudeDeg\x12#\n" +
+	"\rlongitude_deg\x18\x02 \x01(\x02R\flongitudeDeg\x12\x0f\n" +
+	"\x03z_m\x18\x03 \x01(\x02R\x02zM\"U\n" +
+	"\x0eObjectVelocity\x12\x15\n" +
+	"\x06vx_mps\x18\x01 \x01(\x02R\x05vxMps\x12\x15\n" +
+	"\x06vy_mps\x18\x02 \x01(\x02R\x05vyMps\x12\x15\n" +
+	"\x06vz_mps\x18\x03 \x01(\x02R\x05vzMps\"\x84\x03\n" +
+	"\vObjectTrack\x12;\n" +
+	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"ttagSystem\x12$\n" +
+	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12\x19\n" +
+	"\btrack_id\x18\x03 \x01(\x05R\atrackId\x12\x1b\n" +
+	"\tbranch_id\x18\x04 \x01(\x05R\bbranchId\x12\x1b\n" +
+	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12\x13\n" +
+	"\x05age_s\x18\x06 \x01(\x02R\x04ageS\x12C\n" +
+	"\bposition\x18\a \x01(\v2'.magothy.protobuf.vision.ObjectPositionR\bposition\x12C\n" +
+	"\bvelocity\x18\b \x01(\v2'.magothy.protobuf.vision.ObjectVelocityR\bvelocity\x12\x1e\n" +
+	"\n" +
+	"covariance\x18\t \x03(\x02R\n" +
+	"covariance\"\xcf\x01\n" +
+	"\x0fObjectTrackList\x12;\n" +
+	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"ttagSystem\x12$\n" +
+	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12\x1b\n" +
+	"\tsource_id\x18\x03 \x01(\x05R\bsourceId\x12<\n" +
+	"\x06tracks\x18\x04 \x03(\v2$.magothy.protobuf.vision.ObjectTrackR\x06tracksb\x06proto3"
 
 var (
 	file_vision_proto_rawDescOnce sync.Once
@@ -671,7 +995,7 @@ func file_vision_proto_rawDescGZIP() []byte {
 }
 
 var file_vision_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_vision_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_vision_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_vision_proto_goTypes = []any{
 	(OccupancyMap_Type)(0),        // 0: magothy.protobuf.vision.OccupancyMap.Type
 	(OccupancyMap_Scope)(0),       // 1: magothy.protobuf.vision.OccupancyMap.Scope
@@ -680,23 +1004,32 @@ var file_vision_proto_goTypes = []any{
 	(*FramePrediction)(nil),       // 4: magothy.protobuf.vision.FramePrediction
 	(*Frame)(nil),                 // 5: magothy.protobuf.vision.Frame
 	(*OccupancyMap)(nil),          // 6: magothy.protobuf.vision.OccupancyMap
-	(*wrapperspb.FloatValue)(nil), // 7: google.protobuf.FloatValue
-	(*timestamppb.Timestamp)(nil), // 8: google.protobuf.Timestamp
+	(*ObjectPosition)(nil),        // 7: magothy.protobuf.vision.ObjectPosition
+	(*ObjectVelocity)(nil),        // 8: magothy.protobuf.vision.ObjectVelocity
+	(*ObjectTrack)(nil),           // 9: magothy.protobuf.vision.ObjectTrack
+	(*ObjectTrackList)(nil),       // 10: magothy.protobuf.vision.ObjectTrackList
+	(*wrapperspb.FloatValue)(nil), // 11: google.protobuf.FloatValue
+	(*timestamppb.Timestamp)(nil), // 12: google.protobuf.Timestamp
 }
 var file_vision_proto_depIdxs = []int32{
-	7, // 0: magothy.protobuf.vision.Color.alpha:type_name -> google.protobuf.FloatValue
-	3, // 1: magothy.protobuf.vision.FramePrediction.class_color:type_name -> magothy.protobuf.vision.Color
-	8, // 2: magothy.protobuf.vision.Frame.ttag_system:type_name -> google.protobuf.Timestamp
-	4, // 3: magothy.protobuf.vision.Frame.predictions:type_name -> magothy.protobuf.vision.FramePrediction
-	8, // 4: magothy.protobuf.vision.OccupancyMap.ttag_system:type_name -> google.protobuf.Timestamp
-	0, // 5: magothy.protobuf.vision.OccupancyMap.type:type_name -> magothy.protobuf.vision.OccupancyMap.Type
-	1, // 6: magothy.protobuf.vision.OccupancyMap.scope:type_name -> magothy.protobuf.vision.OccupancyMap.Scope
-	2, // 7: magothy.protobuf.vision.OccupancyMap.compression:type_name -> magothy.protobuf.vision.OccupancyMap.Compression
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	11, // 0: magothy.protobuf.vision.Color.alpha:type_name -> google.protobuf.FloatValue
+	3,  // 1: magothy.protobuf.vision.FramePrediction.class_color:type_name -> magothy.protobuf.vision.Color
+	12, // 2: magothy.protobuf.vision.Frame.ttag_system:type_name -> google.protobuf.Timestamp
+	4,  // 3: magothy.protobuf.vision.Frame.predictions:type_name -> magothy.protobuf.vision.FramePrediction
+	12, // 4: magothy.protobuf.vision.OccupancyMap.ttag_system:type_name -> google.protobuf.Timestamp
+	0,  // 5: magothy.protobuf.vision.OccupancyMap.type:type_name -> magothy.protobuf.vision.OccupancyMap.Type
+	1,  // 6: magothy.protobuf.vision.OccupancyMap.scope:type_name -> magothy.protobuf.vision.OccupancyMap.Scope
+	2,  // 7: magothy.protobuf.vision.OccupancyMap.compression:type_name -> magothy.protobuf.vision.OccupancyMap.Compression
+	12, // 8: magothy.protobuf.vision.ObjectTrack.ttag_system:type_name -> google.protobuf.Timestamp
+	7,  // 9: magothy.protobuf.vision.ObjectTrack.position:type_name -> magothy.protobuf.vision.ObjectPosition
+	8,  // 10: magothy.protobuf.vision.ObjectTrack.velocity:type_name -> magothy.protobuf.vision.ObjectVelocity
+	12, // 11: magothy.protobuf.vision.ObjectTrackList.ttag_system:type_name -> google.protobuf.Timestamp
+	9,  // 12: magothy.protobuf.vision.ObjectTrackList.tracks:type_name -> magothy.protobuf.vision.ObjectTrack
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_vision_proto_init() }
@@ -710,7 +1043,7 @@ func file_vision_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_vision_proto_rawDesc), len(file_vision_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
