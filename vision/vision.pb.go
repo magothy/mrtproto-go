@@ -707,8 +707,8 @@ type ObjectTrack struct {
 	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
 	TrackId       int32                  `protobuf:"varint,3,opt,name=track_id,json=trackId,proto3" json:"track_id,omitempty"`
 	BranchId      int32                  `protobuf:"varint,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"`           // source of the track, e.g. sensor ID, tracker ID
-	UpdateCount   float32                `protobuf:"fixed32,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track updated
+	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"`          // source of the track, e.g. sensor ID, tracker ID
+	UpdateCount   int32                  `protobuf:"varint,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track updated
 	Position      *ObjectPosition        `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
 	Velocity      *ObjectVelocity        `protobuf:"bytes,8,opt,name=velocity,proto3" json:"velocity,omitempty"`
 	Covariance    []float32              `protobuf:"fixed32,9,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`               // 6x6 row-major covariance matrix
@@ -783,7 +783,7 @@ func (x *ObjectTrack) GetSourceId() int32 {
 	return 0
 }
 
-func (x *ObjectTrack) GetUpdateCount() float32 {
+func (x *ObjectTrack) GetUpdateCount() int32 {
 	if x != nil {
 		return x.UpdateCount
 	}
@@ -977,7 +977,7 @@ const file_vision_proto_rawDesc = "" +
 	"\btrack_id\x18\x03 \x01(\x05R\atrackId\x12\x1b\n" +
 	"\tbranch_id\x18\x04 \x01(\x05R\bbranchId\x12\x1b\n" +
 	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12!\n" +
-	"\fupdate_count\x18\x06 \x01(\x02R\vupdateCount\x12C\n" +
+	"\fupdate_count\x18\x06 \x01(\x05R\vupdateCount\x12C\n" +
 	"\bposition\x18\a \x01(\v2'.magothy.protobuf.vision.ObjectPositionR\bposition\x12C\n" +
 	"\bvelocity\x18\b \x01(\v2'.magothy.protobuf.vision.ObjectVelocityR\bvelocity\x12\x1e\n" +
 	"\n" +
