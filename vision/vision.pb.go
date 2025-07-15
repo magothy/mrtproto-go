@@ -651,9 +651,8 @@ func (x *ObjectPosition) GetZM() float32 {
 // Object velocity in cartesian coordinates (east, north, up)
 type ObjectVelocity struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	VxMps         float32                `protobuf:"fixed32,1,opt,name=vx_mps,json=vxMps,proto3" json:"vx_mps,omitempty"`
-	VyMps         float32                `protobuf:"fixed32,2,opt,name=vy_mps,json=vyMps,proto3" json:"vy_mps,omitempty"`
-	VzMps         float32                `protobuf:"fixed32,3,opt,name=vz_mps,json=vzMps,proto3" json:"vz_mps,omitempty"`
+	HeadingDeg    float32                `protobuf:"fixed32,1,opt,name=heading_deg,json=headingDeg,proto3" json:"heading_deg,omitempty"`
+	SpeedMps      float32                `protobuf:"fixed32,2,opt,name=speed_mps,json=speedMps,proto3" json:"speed_mps,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -688,23 +687,16 @@ func (*ObjectVelocity) Descriptor() ([]byte, []int) {
 	return file_vision_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *ObjectVelocity) GetVxMps() float32 {
+func (x *ObjectVelocity) GetHeadingDeg() float32 {
 	if x != nil {
-		return x.VxMps
+		return x.HeadingDeg
 	}
 	return 0
 }
 
-func (x *ObjectVelocity) GetVyMps() float32 {
+func (x *ObjectVelocity) GetSpeedMps() float32 {
 	if x != nil {
-		return x.VyMps
-	}
-	return 0
-}
-
-func (x *ObjectVelocity) GetVzMps() float32 {
-	if x != nil {
-		return x.VzMps
+		return x.SpeedMps
 	}
 	return 0
 }
@@ -715,11 +707,13 @@ type ObjectTrack struct {
 	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
 	TrackId       int32                  `protobuf:"varint,3,opt,name=track_id,json=trackId,proto3" json:"track_id,omitempty"`
 	BranchId      int32                  `protobuf:"varint,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"` // source of the track, e.g. sensor ID, tracker ID
-	AgeS          float32                `protobuf:"fixed32,6,opt,name=age_s,json=ageS,proto3" json:"age_s,omitempty"`            // update time since first detection
+	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"`           // source of the track, e.g. sensor ID, tracker ID
+	UpdateCount   float32                `protobuf:"fixed32,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track updated
 	Position      *ObjectPosition        `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
 	Velocity      *ObjectVelocity        `protobuf:"bytes,8,opt,name=velocity,proto3" json:"velocity,omitempty"`
-	Covariance    []float32              `protobuf:"fixed32,9,rep,packed,name=covariance,proto3" json:"covariance,omitempty"` // 6x6 row-major covariance matrix
+	Covariance    []float32              `protobuf:"fixed32,9,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`               // 6x6 row-major covariance matrix
+	IsConfirmed   bool                   `protobuf:"varint,10,opt,name=is_confirmed,json=isConfirmed,proto3" json:"is_confirmed,omitempty"` // is track tentative or confirmed
+	IsPredicted   bool                   `protobuf:"varint,11,opt,name=is_predicted,json=isPredicted,proto3" json:"is_predicted,omitempty"` // is position/velocity predicted (and not corrected)
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -789,9 +783,9 @@ func (x *ObjectTrack) GetSourceId() int32 {
 	return 0
 }
 
-func (x *ObjectTrack) GetAgeS() float32 {
+func (x *ObjectTrack) GetUpdateCount() float32 {
 	if x != nil {
-		return x.AgeS
+		return x.UpdateCount
 	}
 	return 0
 }
@@ -815,6 +809,20 @@ func (x *ObjectTrack) GetCovariance() []float32 {
 		return x.Covariance
 	}
 	return nil
+}
+
+func (x *ObjectTrack) GetIsConfirmed() bool {
+	if x != nil {
+		return x.IsConfirmed
+	}
+	return false
+}
+
+func (x *ObjectTrack) GetIsPredicted() bool {
+	if x != nil {
+		return x.IsPredicted
+	}
+	return false
 }
 
 type ObjectTrackList struct {
@@ -957,24 +965,27 @@ const file_vision_proto_rawDesc = "" +
 	"\x0eObjectPosition\x12!\n" +
 	"\flatitude_deg\x18\x01 \x01(\x02R\vlatitudeDeg\x12#\n" +
 	"\rlongitude_deg\x18\x02 \x01(\x02R\flongitudeDeg\x12\x0f\n" +
-	"\x03z_m\x18\x03 \x01(\x02R\x02zM\"U\n" +
-	"\x0eObjectVelocity\x12\x15\n" +
-	"\x06vx_mps\x18\x01 \x01(\x02R\x05vxMps\x12\x15\n" +
-	"\x06vy_mps\x18\x02 \x01(\x02R\x05vyMps\x12\x15\n" +
-	"\x06vz_mps\x18\x03 \x01(\x02R\x05vzMps\"\x84\x03\n" +
+	"\x03z_m\x18\x03 \x01(\x02R\x02zM\"N\n" +
+	"\x0eObjectVelocity\x12\x1f\n" +
+	"\vheading_deg\x18\x01 \x01(\x02R\n" +
+	"headingDeg\x12\x1b\n" +
+	"\tspeed_mps\x18\x02 \x01(\x02R\bspeedMps\"\xd8\x03\n" +
 	"\vObjectTrack\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
 	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12\x19\n" +
 	"\btrack_id\x18\x03 \x01(\x05R\atrackId\x12\x1b\n" +
 	"\tbranch_id\x18\x04 \x01(\x05R\bbranchId\x12\x1b\n" +
-	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12\x13\n" +
-	"\x05age_s\x18\x06 \x01(\x02R\x04ageS\x12C\n" +
+	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12!\n" +
+	"\fupdate_count\x18\x06 \x01(\x02R\vupdateCount\x12C\n" +
 	"\bposition\x18\a \x01(\v2'.magothy.protobuf.vision.ObjectPositionR\bposition\x12C\n" +
 	"\bvelocity\x18\b \x01(\v2'.magothy.protobuf.vision.ObjectVelocityR\bvelocity\x12\x1e\n" +
 	"\n" +
 	"covariance\x18\t \x03(\x02R\n" +
-	"covariance\"\xcf\x01\n" +
+	"covariance\x12!\n" +
+	"\fis_confirmed\x18\n" +
+	" \x01(\bR\visConfirmed\x12!\n" +
+	"\fis_predicted\x18\v \x01(\bR\visPredicted\"\xcf\x01\n" +
 	"\x0fObjectTrackList\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
