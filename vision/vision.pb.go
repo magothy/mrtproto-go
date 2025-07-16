@@ -590,8 +590,8 @@ func (x *OccupancyMap) GetGrid() []byte {
 
 type ObjectPosition struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	LatitudeDeg   float32                `protobuf:"fixed32,1,opt,name=latitude_deg,json=latitudeDeg,proto3" json:"latitude_deg,omitempty"`
-	LongitudeDeg  float32                `protobuf:"fixed32,2,opt,name=longitude_deg,json=longitudeDeg,proto3" json:"longitude_deg,omitempty"`
+	LatitudeDeg   float64                `protobuf:"fixed64,1,opt,name=latitude_deg,json=latitudeDeg,proto3" json:"latitude_deg,omitempty"`
+	LongitudeDeg  float64                `protobuf:"fixed64,2,opt,name=longitude_deg,json=longitudeDeg,proto3" json:"longitude_deg,omitempty"`
 	ZM            float32                `protobuf:"fixed32,3,opt,name=z_m,json=zM,proto3" json:"z_m,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -627,14 +627,14 @@ func (*ObjectPosition) Descriptor() ([]byte, []int) {
 	return file_vision_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ObjectPosition) GetLatitudeDeg() float32 {
+func (x *ObjectPosition) GetLatitudeDeg() float64 {
 	if x != nil {
 		return x.LatitudeDeg
 	}
 	return 0
 }
 
-func (x *ObjectPosition) GetLongitudeDeg() float32 {
+func (x *ObjectPosition) GetLongitudeDeg() float64 {
 	if x != nil {
 		return x.LongitudeDeg
 	}
@@ -963,8 +963,8 @@ const file_vision_proto_rawDesc = "" +
 	"\x04JPEG\x10\x03\x12\a\n" +
 	"\x03PNG\x10\x04\"i\n" +
 	"\x0eObjectPosition\x12!\n" +
-	"\flatitude_deg\x18\x01 \x01(\x02R\vlatitudeDeg\x12#\n" +
-	"\rlongitude_deg\x18\x02 \x01(\x02R\flongitudeDeg\x12\x0f\n" +
+	"\flatitude_deg\x18\x01 \x01(\x01R\vlatitudeDeg\x12#\n" +
+	"\rlongitude_deg\x18\x02 \x01(\x01R\flongitudeDeg\x12\x0f\n" +
 	"\x03z_m\x18\x03 \x01(\x02R\x02zM\"N\n" +
 	"\x0eObjectVelocity\x12\x1f\n" +
 	"\vheading_deg\x18\x01 \x01(\x02R\n" +
