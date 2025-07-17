@@ -708,12 +708,15 @@ type ObjectTrack struct {
 	TrackId       int32                  `protobuf:"varint,3,opt,name=track_id,json=trackId,proto3" json:"track_id,omitempty"`
 	BranchId      int32                  `protobuf:"varint,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"`          // source of the track, e.g. sensor ID, tracker ID
-	UpdateCount   int32                  `protobuf:"varint,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track updated
-	Position      *ObjectPosition        `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
-	Velocity      *ObjectVelocity        `protobuf:"bytes,8,opt,name=velocity,proto3" json:"velocity,omitempty"`
-	Covariance    []float32              `protobuf:"fixed32,9,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`               // 6x6 row-major covariance matrix
-	IsConfirmed   bool                   `protobuf:"varint,10,opt,name=is_confirmed,json=isConfirmed,proto3" json:"is_confirmed,omitempty"` // is track tentative or confirmed
-	IsPredicted   bool                   `protobuf:"varint,11,opt,name=is_predicted,json=isPredicted,proto3" json:"is_predicted,omitempty"` // is position/velocity predicted (and not corrected)
+	UpdateCount   int32                  `protobuf:"varint,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track is updated
+	AgeS          float32                `protobuf:"fixed32,7,opt,name=age_s,json=ageS,proto3" json:"age_s,omitempty"`                     // total time object is being tracked
+	LatitudeDeg   float64                `protobuf:"fixed64,8,opt,name=latitude_deg,json=latitudeDeg,proto3" json:"latitude_deg,omitempty"`
+	LongitudeDeg  float64                `protobuf:"fixed64,9,opt,name=longitude_deg,json=longitudeDeg,proto3" json:"longitude_deg,omitempty"`
+	HeadingDeg    float64                `protobuf:"fixed64,10,opt,name=heading_deg,json=headingDeg,proto3" json:"heading_deg,omitempty"`
+	SpeedMps      float64                `protobuf:"fixed64,11,opt,name=speed_mps,json=speedMps,proto3" json:"speed_mps,omitempty"`
+	Covariance    []float32              `protobuf:"fixed32,12,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`              // 6x6 row-major covariance matrix
+	IsConfirmed   bool                   `protobuf:"varint,13,opt,name=is_confirmed,json=isConfirmed,proto3" json:"is_confirmed,omitempty"` // is track tentative or confirmed
+	IsPredicted   bool                   `protobuf:"varint,14,opt,name=is_predicted,json=isPredicted,proto3" json:"is_predicted,omitempty"` // is position/velocity predicted (and not corrected)
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -790,18 +793,39 @@ func (x *ObjectTrack) GetUpdateCount() int32 {
 	return 0
 }
 
-func (x *ObjectTrack) GetPosition() *ObjectPosition {
+func (x *ObjectTrack) GetAgeS() float32 {
 	if x != nil {
-		return x.Position
+		return x.AgeS
 	}
-	return nil
+	return 0
 }
 
-func (x *ObjectTrack) GetVelocity() *ObjectVelocity {
+func (x *ObjectTrack) GetLatitudeDeg() float64 {
 	if x != nil {
-		return x.Velocity
+		return x.LatitudeDeg
 	}
-	return nil
+	return 0
+}
+
+func (x *ObjectTrack) GetLongitudeDeg() float64 {
+	if x != nil {
+		return x.LongitudeDeg
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetHeadingDeg() float64 {
+	if x != nil {
+		return x.HeadingDeg
+	}
+	return 0
+}
+
+func (x *ObjectTrack) GetSpeedMps() float64 {
+	if x != nil {
+		return x.SpeedMps
+	}
+	return 0
 }
 
 func (x *ObjectTrack) GetCovariance() []float32 {
@@ -969,7 +993,7 @@ const file_vision_proto_rawDesc = "" +
 	"\x0eObjectVelocity\x12\x1f\n" +
 	"\vheading_deg\x18\x01 \x01(\x02R\n" +
 	"headingDeg\x12\x1b\n" +
-	"\tspeed_mps\x18\x02 \x01(\x02R\bspeedMps\"\xd8\x03\n" +
+	"\tspeed_mps\x18\x02 \x01(\x02R\bspeedMps\"\xe9\x03\n" +
 	"\vObjectTrack\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
@@ -977,15 +1001,19 @@ const file_vision_proto_rawDesc = "" +
 	"\btrack_id\x18\x03 \x01(\x05R\atrackId\x12\x1b\n" +
 	"\tbranch_id\x18\x04 \x01(\x05R\bbranchId\x12\x1b\n" +
 	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12!\n" +
-	"\fupdate_count\x18\x06 \x01(\x05R\vupdateCount\x12C\n" +
-	"\bposition\x18\a \x01(\v2'.magothy.protobuf.vision.ObjectPositionR\bposition\x12C\n" +
-	"\bvelocity\x18\b \x01(\v2'.magothy.protobuf.vision.ObjectVelocityR\bvelocity\x12\x1e\n" +
+	"\fupdate_count\x18\x06 \x01(\x05R\vupdateCount\x12\x13\n" +
+	"\x05age_s\x18\a \x01(\x02R\x04ageS\x12!\n" +
+	"\flatitude_deg\x18\b \x01(\x01R\vlatitudeDeg\x12#\n" +
+	"\rlongitude_deg\x18\t \x01(\x01R\flongitudeDeg\x12\x1f\n" +
+	"\vheading_deg\x18\n" +
+	" \x01(\x01R\n" +
+	"headingDeg\x12\x1b\n" +
+	"\tspeed_mps\x18\v \x01(\x01R\bspeedMps\x12\x1e\n" +
 	"\n" +
-	"covariance\x18\t \x03(\x02R\n" +
+	"covariance\x18\f \x03(\x02R\n" +
 	"covariance\x12!\n" +
-	"\fis_confirmed\x18\n" +
-	" \x01(\bR\visConfirmed\x12!\n" +
-	"\fis_predicted\x18\v \x01(\bR\visPredicted\"\xcf\x01\n" +
+	"\fis_confirmed\x18\r \x01(\bR\visConfirmed\x12!\n" +
+	"\fis_predicted\x18\x0e \x01(\bR\visPredicted\"\xcf\x01\n" +
 	"\x0fObjectTrackList\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
@@ -1032,15 +1060,13 @@ var file_vision_proto_depIdxs = []int32{
 	1,  // 6: magothy.protobuf.vision.OccupancyMap.scope:type_name -> magothy.protobuf.vision.OccupancyMap.Scope
 	2,  // 7: magothy.protobuf.vision.OccupancyMap.compression:type_name -> magothy.protobuf.vision.OccupancyMap.Compression
 	12, // 8: magothy.protobuf.vision.ObjectTrack.ttag_system:type_name -> google.protobuf.Timestamp
-	7,  // 9: magothy.protobuf.vision.ObjectTrack.position:type_name -> magothy.protobuf.vision.ObjectPosition
-	8,  // 10: magothy.protobuf.vision.ObjectTrack.velocity:type_name -> magothy.protobuf.vision.ObjectVelocity
-	12, // 11: magothy.protobuf.vision.ObjectTrackList.ttag_system:type_name -> google.protobuf.Timestamp
-	9,  // 12: magothy.protobuf.vision.ObjectTrackList.tracks:type_name -> magothy.protobuf.vision.ObjectTrack
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	12, // 9: magothy.protobuf.vision.ObjectTrackList.ttag_system:type_name -> google.protobuf.Timestamp
+	9,  // 10: magothy.protobuf.vision.ObjectTrackList.tracks:type_name -> magothy.protobuf.vision.ObjectTrack
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_vision_proto_init() }
