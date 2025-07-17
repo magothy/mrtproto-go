@@ -595,13 +595,13 @@ type ObjectTrack struct {
 	TrackId       int32                  `protobuf:"varint,3,opt,name=track_id,json=trackId,proto3" json:"track_id,omitempty"`
 	BranchId      int32                  `protobuf:"varint,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	SourceId      int32                  `protobuf:"varint,5,opt,name=source_id,json=sourceId,proto3" json:"source_id,omitempty"`          // source of the track, e.g. sensor ID, tracker ID
-	UpdateCount   int32                  `protobuf:"varint,6,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track is updated
-	AgeS          float32                `protobuf:"fixed32,7,opt,name=age_s,json=ageS,proto3" json:"age_s,omitempty"`                     // total time object is being tracked
+	AgeS          float32                `protobuf:"fixed32,6,opt,name=age_s,json=ageS,proto3" json:"age_s,omitempty"`                     // total time object is being tracked
+	UpdateCount   int32                  `protobuf:"varint,7,opt,name=update_count,json=updateCount,proto3" json:"update_count,omitempty"` // number of times track is updated
 	LatitudeDeg   float64                `protobuf:"fixed64,8,opt,name=latitude_deg,json=latitudeDeg,proto3" json:"latitude_deg,omitempty"`
 	LongitudeDeg  float64                `protobuf:"fixed64,9,opt,name=longitude_deg,json=longitudeDeg,proto3" json:"longitude_deg,omitempty"`
 	HeadingDeg    float64                `protobuf:"fixed64,10,opt,name=heading_deg,json=headingDeg,proto3" json:"heading_deg,omitempty"`
 	SpeedMps      float64                `protobuf:"fixed64,11,opt,name=speed_mps,json=speedMps,proto3" json:"speed_mps,omitempty"`
-	Covariance    []float32              `protobuf:"fixed32,12,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`              // 6x6 row-major covariance matrix
+	Covariance    []float32              `protobuf:"fixed32,12,rep,packed,name=covariance,proto3" json:"covariance,omitempty"`              // 4x4 row-major covariance matrix
 	IsConfirmed   bool                   `protobuf:"varint,13,opt,name=is_confirmed,json=isConfirmed,proto3" json:"is_confirmed,omitempty"` // is track tentative or confirmed
 	IsPredicted   bool                   `protobuf:"varint,14,opt,name=is_predicted,json=isPredicted,proto3" json:"is_predicted,omitempty"` // is position/velocity predicted (and not corrected)
 	unknownFields protoimpl.UnknownFields
@@ -673,16 +673,16 @@ func (x *ObjectTrack) GetSourceId() int32 {
 	return 0
 }
 
-func (x *ObjectTrack) GetUpdateCount() int32 {
+func (x *ObjectTrack) GetAgeS() float32 {
 	if x != nil {
-		return x.UpdateCount
+		return x.AgeS
 	}
 	return 0
 }
 
-func (x *ObjectTrack) GetAgeS() float32 {
+func (x *ObjectTrack) GetUpdateCount() int32 {
 	if x != nil {
-		return x.AgeS
+		return x.UpdateCount
 	}
 	return 0
 }
@@ -879,9 +879,9 @@ const file_vision_proto_rawDesc = "" +
 	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12\x19\n" +
 	"\btrack_id\x18\x03 \x01(\x05R\atrackId\x12\x1b\n" +
 	"\tbranch_id\x18\x04 \x01(\x05R\bbranchId\x12\x1b\n" +
-	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12!\n" +
-	"\fupdate_count\x18\x06 \x01(\x05R\vupdateCount\x12\x13\n" +
-	"\x05age_s\x18\a \x01(\x02R\x04ageS\x12!\n" +
+	"\tsource_id\x18\x05 \x01(\x05R\bsourceId\x12\x13\n" +
+	"\x05age_s\x18\x06 \x01(\x02R\x04ageS\x12!\n" +
+	"\fupdate_count\x18\a \x01(\x05R\vupdateCount\x12!\n" +
 	"\flatitude_deg\x18\b \x01(\x01R\vlatitudeDeg\x12#\n" +
 	"\rlongitude_deg\x18\t \x01(\x01R\flongitudeDeg\x12\x1f\n" +
 	"\vheading_deg\x18\n" +
