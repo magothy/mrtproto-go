@@ -856,7 +856,7 @@ func (x *Vertex) GetLongitudeDeg() float64 {
 	return 0
 }
 
-type TrackingZone struct {
+type TrackingFence struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TtagSystem    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=ttag_system,json=ttagSystem,proto3" json:"ttag_system,omitempty"`
 	TtagSteadyNs  uint64                 `protobuf:"varint,2,opt,name=ttag_steady_ns,json=ttagSteadyNs,proto3" json:"ttag_steady_ns,omitempty"`
@@ -865,20 +865,20 @@ type TrackingZone struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TrackingZone) Reset() {
-	*x = TrackingZone{}
+func (x *TrackingFence) Reset() {
+	*x = TrackingFence{}
 	mi := &file_vision_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *TrackingZone) String() string {
+func (x *TrackingFence) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*TrackingZone) ProtoMessage() {}
+func (*TrackingFence) ProtoMessage() {}
 
-func (x *TrackingZone) ProtoReflect() protoreflect.Message {
+func (x *TrackingFence) ProtoReflect() protoreflect.Message {
 	mi := &file_vision_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -890,26 +890,26 @@ func (x *TrackingZone) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use TrackingZone.ProtoReflect.Descriptor instead.
-func (*TrackingZone) Descriptor() ([]byte, []int) {
+// Deprecated: Use TrackingFence.ProtoReflect.Descriptor instead.
+func (*TrackingFence) Descriptor() ([]byte, []int) {
 	return file_vision_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *TrackingZone) GetTtagSystem() *timestamppb.Timestamp {
+func (x *TrackingFence) GetTtagSystem() *timestamppb.Timestamp {
 	if x != nil {
 		return x.TtagSystem
 	}
 	return nil
 }
 
-func (x *TrackingZone) GetTtagSteadyNs() uint64 {
+func (x *TrackingFence) GetTtagSteadyNs() uint64 {
 	if x != nil {
 		return x.TtagSteadyNs
 	}
 	return 0
 }
 
-func (x *TrackingZone) GetVertices() []*Vertex {
+func (x *TrackingFence) GetVertices() []*Vertex {
 	if x != nil {
 		return x.Vertices
 	}
@@ -1013,8 +1013,8 @@ const file_vision_proto_rawDesc = "" +
 	"\x06tracks\x18\x04 \x03(\v2$.magothy.protobuf.vision.ObjectTrackR\x06tracks\"P\n" +
 	"\x06Vertex\x12!\n" +
 	"\flatitude_deg\x18\x01 \x01(\x01R\vlatitudeDeg\x12#\n" +
-	"\rlongitude_deg\x18\x02 \x01(\x01R\flongitudeDeg\"\xae\x01\n" +
-	"\fTrackingZone\x12;\n" +
+	"\rlongitude_deg\x18\x02 \x01(\x01R\flongitudeDeg\"\xaf\x01\n" +
+	"\rTrackingFence\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
 	"\x0ettag_steady_ns\x18\x02 \x01(\x04R\fttagSteadyNs\x12;\n" +
@@ -1045,7 +1045,7 @@ var file_vision_proto_goTypes = []any{
 	(*ObjectTrack)(nil),           // 7: magothy.protobuf.vision.ObjectTrack
 	(*ObjectTrackList)(nil),       // 8: magothy.protobuf.vision.ObjectTrackList
 	(*Vertex)(nil),                // 9: magothy.protobuf.vision.Vertex
-	(*TrackingZone)(nil),          // 10: magothy.protobuf.vision.TrackingZone
+	(*TrackingFence)(nil),         // 10: magothy.protobuf.vision.TrackingFence
 	(*wrapperspb.FloatValue)(nil), // 11: google.protobuf.FloatValue
 	(*timestamppb.Timestamp)(nil), // 12: google.protobuf.Timestamp
 }
@@ -1061,8 +1061,8 @@ var file_vision_proto_depIdxs = []int32{
 	12, // 8: magothy.protobuf.vision.ObjectTrack.ttag_system:type_name -> google.protobuf.Timestamp
 	12, // 9: magothy.protobuf.vision.ObjectTrackList.ttag_system:type_name -> google.protobuf.Timestamp
 	7,  // 10: magothy.protobuf.vision.ObjectTrackList.tracks:type_name -> magothy.protobuf.vision.ObjectTrack
-	12, // 11: magothy.protobuf.vision.TrackingZone.ttag_system:type_name -> google.protobuf.Timestamp
-	9,  // 12: magothy.protobuf.vision.TrackingZone.vertices:type_name -> magothy.protobuf.vision.Vertex
+	12, // 11: magothy.protobuf.vision.TrackingFence.ttag_system:type_name -> google.protobuf.Timestamp
+	9,  // 12: magothy.protobuf.vision.TrackingFence.vertices:type_name -> magothy.protobuf.vision.Vertex
 	13, // [13:13] is the sub-list for method output_type
 	13, // [13:13] is the sub-list for method input_type
 	13, // [13:13] is the sub-list for extension type_name
