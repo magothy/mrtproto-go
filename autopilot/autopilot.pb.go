@@ -1672,7 +1672,7 @@ type ObstacleIf struct {
 	CourseDeg       *float64                   `protobuf:"fixed64,7,opt,name=course_deg,json=courseDeg,proto3,oneof" json:"course_deg,omitempty"`
 	SpeedMps        *float64                   `protobuf:"fixed64,8,opt,name=speed_mps,json=speedMps,proto3,oneof" json:"speed_mps,omitempty"`
 	PointOfInterest *Position                  `protobuf:"bytes,9,opt,name=point_of_interest,json=pointOfInterest,proto3,oneof" json:"point_of_interest,omitempty"`
-	IntentType      ObstacleIf_IntentType      `protobuf:"varint,10,opt,name=intent_type,json=intentType,proto3,enum=magothy.protobuf.autopilot.ObstacleIf_IntentType" json:"intent_type,omitempty"`
+	IntentType      *ObstacleIf_IntentType     `protobuf:"varint,10,opt,name=intent_type,json=intentType,proto3,enum=magothy.protobuf.autopilot.ObstacleIf_IntentType,oneof" json:"intent_type,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -1782,8 +1782,8 @@ func (x *ObstacleIf) GetPointOfInterest() *Position {
 }
 
 func (x *ObstacleIf) GetIntentType() ObstacleIf_IntentType {
-	if x != nil {
-		return x.IntentType
+	if x != nil && x.IntentType != nil {
+		return *x.IntentType
 	}
 	return ObstacleIf_FRIENDLY
 }
@@ -2841,7 +2841,7 @@ const file_autopilot_proto_rawDesc = "" +
 	"\v_altitude_mB\x10\n" +
 	"\x0e_num_satelliteB\v\n" +
 	"\t_rmc_dataB\v\n" +
-	"\t_gga_data\"\x8f\a\n" +
+	"\t_gga_data\"\xa4\a\n" +
 	"\n" +
 	"ObstacleIf\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12G\n" +
@@ -2854,10 +2854,10 @@ const file_autopilot_proto_rawDesc = "" +
 	"\n" +
 	"course_deg\x18\a \x01(\x01H\x01R\tcourseDeg\x88\x01\x01\x12 \n" +
 	"\tspeed_mps\x18\b \x01(\x01H\x02R\bspeedMps\x88\x01\x01\x12U\n" +
-	"\x11point_of_interest\x18\t \x01(\v2$.magothy.protobuf.autopilot.PositionH\x03R\x0fpointOfInterest\x88\x01\x01\x12R\n" +
+	"\x11point_of_interest\x18\t \x01(\v2$.magothy.protobuf.autopilot.PositionH\x03R\x0fpointOfInterest\x88\x01\x01\x12W\n" +
 	"\vintent_type\x18\n" +
-	" \x01(\x0e21.magothy.protobuf.autopilot.ObstacleIf.IntentTypeR\n" +
-	"intentType\x1aa\n" +
+	" \x01(\x0e21.magothy.protobuf.autopilot.ObstacleIf.IntentTypeH\x04R\n" +
+	"intentType\x88\x01\x01\x1aa\n" +
 	"\x06Circle\x12<\n" +
 	"\x06origin\x18\x01 \x01(\v2$.magothy.protobuf.autopilot.PositionR\x06origin\x12\x19\n" +
 	"\bradius_m\x18\x02 \x01(\x01R\aradiusM\x1aK\n" +
@@ -2875,7 +2875,8 @@ const file_autopilot_proto_rawDesc = "" +
 	"\v_course_degB\f\n" +
 	"\n" +
 	"_speed_mpsB\x14\n" +
-	"\x12_point_of_interest\"\xb4\x01\n" +
+	"\x12_point_of_interestB\x0e\n" +
+	"\f_intent_type\"\xb4\x01\n" +
 	"\tObstacles\x12;\n" +
 	"\vttag_system\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"ttagSystem\x12$\n" +
