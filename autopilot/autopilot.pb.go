@@ -211,22 +211,22 @@ func (ObstacleIf_ZoneType) EnumDescriptor() ([]byte, []int) {
 type ObstacleIf_IntentType int32
 
 const (
-	ObstacleIf_FRIENDLY ObstacleIf_IntentType = 0
-	ObstacleIf_HOSTILE  ObstacleIf_IntentType = 1
-	ObstacleIf_UNKNOWN  ObstacleIf_IntentType = 2
+	ObstacleIf_UNKNOWN  ObstacleIf_IntentType = 0
+	ObstacleIf_FRIENDLY ObstacleIf_IntentType = 1
+	ObstacleIf_HOSTILE  ObstacleIf_IntentType = 2
 )
 
 // Enum value maps for ObstacleIf_IntentType.
 var (
 	ObstacleIf_IntentType_name = map[int32]string{
-		0: "FRIENDLY",
-		1: "HOSTILE",
-		2: "UNKNOWN",
+		0: "UNKNOWN",
+		1: "FRIENDLY",
+		2: "HOSTILE",
 	}
 	ObstacleIf_IntentType_value = map[string]int32{
-		"FRIENDLY": 0,
-		"HOSTILE":  1,
-		"UNKNOWN":  2,
+		"UNKNOWN":  0,
+		"FRIENDLY": 1,
+		"HOSTILE":  2,
 	}
 )
 
@@ -1785,7 +1785,7 @@ func (x *ObstacleIf) GetIntentType() ObstacleIf_IntentType {
 	if x != nil && x.IntentType != nil {
 		return *x.IntentType
 	}
-	return ObstacleIf_FRIENDLY
+	return ObstacleIf_UNKNOWN
 }
 
 type isObstacleIf_ObstacleOneOf interface {
@@ -2867,10 +2867,10 @@ const file_autopilot_proto_rawDesc = "" +
 	"\rZONE_KEEP_OUT\x10\x00\x12\x10\n" +
 	"\fZONE_KEEP_IN\x10\x01\"4\n" +
 	"\n" +
-	"IntentType\x12\f\n" +
-	"\bFRIENDLY\x10\x00\x12\v\n" +
-	"\aHOSTILE\x10\x01\x12\v\n" +
-	"\aUNKNOWN\x10\x02B\x0f\n" +
+	"IntentType\x12\v\n" +
+	"\aUNKNOWN\x10\x00\x12\f\n" +
+	"\bFRIENDLY\x10\x01\x12\v\n" +
+	"\aHOSTILE\x10\x02B\x0f\n" +
 	"\rObstacleOneOfB\r\n" +
 	"\v_course_degB\f\n" +
 	"\n" +
